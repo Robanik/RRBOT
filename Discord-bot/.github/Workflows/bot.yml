@@ -2,25 +2,22 @@ name: Run Discord Bot
 
 on:
   schedule:
-    - cron: "0 8 * * *"   # Запуск каждый день в 08:00 UTC
-  workflow_dispatch:       # Возможность запустить вручную через GitHub
+    - cron: "0 8 * * *"   # запуск каждый день в 08:00 UTC
+  workflow_dispatch:       # возможность запускать вручную
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout репозитория
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Установка Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-
       - name: Установка зависимостей
         run: pip install -r requirements.txt
-
       - name: Запуск бота
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python bot.py

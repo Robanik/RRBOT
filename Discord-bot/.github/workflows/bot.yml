@@ -1,6 +1,5 @@
 name: Run Discord Bot
 
-# Запуск по расписанию и вручную
 on:
   schedule:
     - cron: "0 8 * * *"   # каждый день в 08:00 UTC
@@ -11,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Скачиваем репозиторий
+      # Скачиваем репозиторий (фиксированный SHA)
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
 
-      # Устанавливаем Python
+      # Устанавливаем Python (фиксированный SHA)
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
